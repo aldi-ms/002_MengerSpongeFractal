@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3jbgltuwhwnq"]
+
+[ext_resource type="Script" path="res://scripts/box.gd" id="1_vsnwk"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_icaqd"]
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 1, 1, 1),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 4, 0, 6, 0, 7, 0, 0, 0, 3, 0, 4, 0, 3, 0, 7, 0, 4, 0, 3, 0, 2, 0, 7, 0, 2, 0, 6, 0, 7, 0, 1, 0, 2, 0, 6, 0, 6, 0, 5, 0, 1, 0, 0, 0, 1, 0, 5, 0, 5, 0, 4, 0, 0, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63)
+}]
+
+[node name="Box" type="MeshInstance3D"]
+transform = Transform3D(0.984031, -0.117972, 0.134043, 0.134043, 0.984028, -0.117973, -0.117973, 0.134042, 0.984031, 0, 0, 0)
+mesh = SubResource("ArrayMesh_icaqd")
+script = ExtResource("1_vsnwk")

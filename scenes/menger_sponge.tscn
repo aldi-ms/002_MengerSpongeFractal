@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://dejei0ihchvqr"]
+
+[ext_resource type="PackedScene" uid="uid://d3jbgltuwhwnq" path="res://scenes/box.tscn" id="1_qxv7d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bimgi"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_6x07y"]
+sky_material = SubResource("ProceduralSkyMaterial_bimgi")
+
+[sub_resource type="Environment" id="Environment_ofjyf"]
+background_mode = 2
+sky = SubResource("Sky_6x07y")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_rtfrl"]
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 1, 1, 1),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 2, 0, 1, 0, 0, 0, 3, 0, 2, 0, 5, 0, 6, 0, 4, 0, 4, 0, 6, 0, 7, 0, 0, 0, 4, 0, 3, 0, 3, 0, 4, 0, 7, 0, 3, 0, 7, 0, 2, 0, 2, 0, 7, 0, 6, 0, 1, 0, 2, 0, 6, 0, 6, 0, 5, 0, 1, 0, 0, 0, 1, 0, 5, 0, 5, 0, 4, 0, 0, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63)
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlp7k"]
+
+[node name="MengerSponge" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 3, -2)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ofjyf")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 2, 0)
+fov = 72.1589
+
+[node name="Box" parent="." instance=ExtResource("1_qxv7d")]
+transform = Transform3D(1.00011, 0, 0, 0, 1.00011, 0, 0, 0, 1.00011, 0, 0, 0)
+mesh = SubResource("ArrayMesh_rtfrl")
+skeleton = NodePath("../WorldEnvironment")
+surface_material_override/0 = SubResource("StandardMaterial3D_vlp7k")
