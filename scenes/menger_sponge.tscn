@@ -44,7 +44,7 @@ transform = Transform3D(0.894764, 0.420146, 0.151245, -0.30531, 0.328445, 0.8938
 fov = 55.5431
 
 [node name="Box" parent="." instance=ExtResource("1_qxv7d")]
-transform = Transform3D(0.729461, -0.329171, 0.600384, 0.600385, 0.729453, -0.329174, -0.329178, 0.600384, 0.72946, 0, 0, 0)
+transform = Transform3D(-0.147108, 0.173534, 0.974282, 0.974285, -0.147105, 0.17353, 0.173527, 0.974274, -0.147106, 0, 0, 0)
 mesh = SubResource("ArrayMesh_v74mh")
 skeleton = NodePath("../WorldEnvironment")
 surface_material_override/0 = SubResource("StandardMaterial3D_wahjj")
