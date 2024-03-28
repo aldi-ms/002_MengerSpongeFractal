@@ -1,39 +1,24 @@
-@tool
 extends MeshInstance3D
 
 @export var update = false
 
-func _ready():
-	gen_mesh()
-	
-func gen_mesh():
+func gen_mesh(pos: Vector3, side: float):
 	var array_mesh := ArrayMesh.new()
 	var vertices := PackedVector3Array()
 	var indices := PackedInt32Array()
 	var uvs := PackedVector2Array()
 	var normals := PackedVector3Array()
 
-	var cube_uvs := PackedVector2Array([
-		Vector2(0, 0),
-		Vector2(1, 0),
-		Vector2(1, 1),
-		Vector2(0, 1),
-		
-		Vector2(0, 0),
-		Vector2(1, 0),
-		Vector2(1, 1),
-		Vector2(0, 1),
-	])
 	var cube_vertices = [
-		Vector3(0,0,0),
-		Vector3(1,0,0),
-		Vector3(1,0,1),
-		Vector3(0,0,1),
+		pos, #Vector3(0, 0, 0)
+		pos + Vector3(side, 0, 0),
+		pos + Vector3(side, 0, side),
+		pos + Vector3(0, 0, side),
 		
-		Vector3(0,1,0),
-		Vector3(1,1,0),
-		Vector3(1,1,1),
-		Vector3(0,1,1)
+		pos + Vector3(0, side, 0),
+		pos + Vector3(side, side, 0),
+		pos + Vector3(side, side, side),
+		pos + Vector3(0, side, side)
 	]
 	var cube_faces = [
 		[0, 2, 1],
@@ -54,7 +39,18 @@ func gen_mesh():
 		[0, 1, 5],
 		[5, 4, 0]
 	]
-
+	var cube_uvs := PackedVector2Array([
+		Vector2(0, 0),
+		Vector2(1, 0),
+		Vector2(1, 1),
+		Vector2(0, 1),
+		
+		Vector2(0, 0),
+		Vector2(1, 0),
+		Vector2(1, 1),
+		Vector2(0, 1),
+	])
+	
 	for face in cube_faces:
 		var a = cube_vertices[face[0]]
 		var b = cube_vertices[face[1]]
@@ -76,11 +72,14 @@ func gen_mesh():
 	
 	array_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, array)
 	mesh = array_mesh
-	
 
 func _process(delta):
-	if update:
-		gen_mesh()
+	if update || Input.is_key_pressed(KEY_SPACE):
+		#gen_mesh(Vector3.ZERO, 1)
 		update = false
 		
 	rotate(Vector3(0.1,0.1,0.1).normalized(), 0.01)
+
+func _on_menger_sponge_generate_mesh(pos, side):
+	print("sponge called: position:%s, size:%s" % [pos, side])
+	gen_mesh(pos, side)
