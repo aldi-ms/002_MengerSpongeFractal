@@ -6,10 +6,12 @@ var pos: Vector3
 var side: float
 
 func gen_mesh(_pos: Vector3, _side: float):
-	print("gen_mesh: pos=%s; side=%s" % [pos, side])
+	#print("gen_mesh: pos=%s; side=%s" % [_pos, _side])
 	pos = _pos
 	side = _side
-	position = pos
+	
+	translate(Vector3.ONE / 2)
+	
 	var array_mesh := ArrayMesh.new()
 	var vertices := PackedVector3Array()
 	var indices := PackedInt32Array()
@@ -17,7 +19,7 @@ func gen_mesh(_pos: Vector3, _side: float):
 	var normals := PackedVector3Array()
 
 	var cube_vertices = [
-		pos, #Vector3(0, 0, 0)
+		pos,
 		pos + Vector3(side, 0, 0),
 		pos + Vector3(side, 0, side),
 		pos + Vector3(0, 0, side),

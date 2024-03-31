@@ -13,7 +13,7 @@ func _ready():
 	sponge.append(cube)
 	
 func _process(delta):
-	$SpongeContainer.rotate(Vector3(0.1, 0.1, 0.1).normalized(), 0.01)
+	$SpongeContainer.rotate(Vector3(0.1, 0.1, 0.1).normalized(), delta * .6)
 	
 	if Input.is_action_just_pressed("split_sponge"):
 		var next_sponge = []
@@ -27,13 +27,17 @@ func _process(delta):
 		sponge = next_sponge
 		
 func split_cube(cube: Cube):
-	var next_sponge = []
-	var next_size = cube.side / 3
+	var next_gen = []
+	var next_size = cube.side / 3.0
 	
 	# split cube in 3x3
-	for x in range(-1, 2):
-		for y in range(-1, 2):
-			for z in range(-1, 2):
+	for x in range(0, 3):
+		for y in range(0, 3):
+			for z in range(0, 3):
+				if check_cube_pos(x, y, z):
+					# center/middle cube, dont create it
+					continue
+					
 				var next_pos = cube.pos + Vector3(
 					x * next_size, 
 					y * next_size, 
@@ -41,8 +45,12 @@ func split_cube(cube: Cube):
 				var next_cube: Cube = cube_scene.instantiate()
 				$SpongeContainer.add_child(next_cube)
 				next_cube.gen_mesh(next_pos, next_size)
-				next_sponge.append(next_cube)
+				next_gen.append(next_cube)
 				
-	return next_sponge
-				
-	# generate new 3x3 cubes, removing the middle ones
+	return next_gen
+	
+func check_cube_pos(x, y, z):
+	if Vector3(x, y, z) == Vector3.ONE:
+		return true
+	return (x == 1 && y == 1) || (x == 1 && z == 1) || (y == 1 and z == 1)
+		
